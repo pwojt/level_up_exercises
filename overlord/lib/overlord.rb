@@ -4,7 +4,7 @@ class BombError < Exception; end
 class BombExploded < Exception; end
 
 class Overlord < Sinatra::Application
-  STATUS_TAMPLATES = {
+  STATUS_TEMPLATES = {
     new: :boot,
     booted: :booted,
     active: :active,
@@ -48,7 +48,7 @@ class Overlord < Sinatra::Application
   # Deactivate
   delete '/' do
     check_exploaded
-    raise(BombError, "Bomb connot be deactivated now") if bomb_status != :active
+    raise(BombError, "Bomb cannot be deactivated now") if bomb_status != :active
     if params[:code] == session[:deactivation_code]
       session.clear
     else
@@ -99,7 +99,7 @@ class Overlord < Sinatra::Application
 
   def render_bomb_page
     check_exploaded
-    erb STATUS_TAMPLATES[bomb_status],
+    erb STATUS_TEMPLATES[bomb_status],
       locals: { status_desc: STATUS_TEXT[bomb_status] }
   end
 
