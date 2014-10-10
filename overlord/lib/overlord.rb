@@ -40,7 +40,7 @@ class Overlord < Sinatra::Application
     raise(BombError, "Invalid time entered") unless params[:time] =~ /^\d+$/
     if params[:code] == session[:activation_code]
       session[:status] = :active
-      session[:expire] = Time.now + (params[:time] || 30).to_i
+      session[:expire] = Time.now + params[:time].to_i
     end
     render_bomb_page
   end
